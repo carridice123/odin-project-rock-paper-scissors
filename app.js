@@ -1,3 +1,12 @@
+let playerScore = 0;
+let compScore = 0;
+
+
+const rockBtn = document.querySelector("#btn-1");
+const paperBtn = document.querySelector("#btn-2");
+const scissorsBtn = document.querySelector("#btn-3");
+const resultes = document.querySelector("#results");
+
 const choice = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
@@ -32,18 +41,74 @@ function checkWinner(playerSelection, compSelection) {
 function playRound(playerSelection, compSelection) {
     const result = checkWinner(playerSelection, compSelection);
     if(result == "Tie") {
-        return "It's a tie";
+        const paragh1 = document.createElement("p");
+        paragh1.innerText = `It's a tie`;
+       resultes.appendChild(paragh1);
     }
     else if(result == "Player!") {
-        return `You Win! ${playerSelection} Destroys ${compSelection}` // the back tick allows variables in them
-    }                                // so those are more like parameters. and the argument value fills in them.
-    else {
-        return `you Lose! ${compSelection} Destroys ${playerSelection}`
+     
+        const paragh2 = document.createElement("p");; // the back tick allows variables in them
+        paragh2.innerText = `You Win! ${playerSelection} Destroys ${compSelection}`
+        resultes.appendChild(paragh2);
+        playerScore += 1;
+       
+    }  else if (result == "Computer"){
+       
+        const paragh3 = document.createElement("p");
+        paragh3.innerText = `you Lose! ${compSelection} Destroys ${playerSelection}`;
+        resultes.appendChild(paragh3);
+        compScore += 1;
+       
+    }                             
+        
     }
+    const  checkForWinner = (playerScore, compScore) => {
+        if(playerScore === 5) {
+            const heade2 = document.createElement("h2");
+            heade2.innerText = "you win";
+            resultes.appendChild(heade2);
+            return playerScore;
+        }
+        if (compScore === 5) {
+            const heade3 = document.createElement("h2");
+            heade3.innerText = "you lose";
+            resultes.appendChild(heade3);
+            return compScore;
+        }
+    }
+   
+    
 
-    
-    
-}
+rockBtn.addEventListener("click", () => {
+    const compSelection = getComputerChoice();
+    const playerSelection = "rock";
+    playRound(playerSelection, compSelection);
+    checkForWinner(playerScore, compScore)
+});
+
+paperBtn.addEventListener("click", () => {
+    const compSelection = getComputerChoice();
+    const playerSelection = "paper";
+    playRound(playerSelection, compSelection);
+    checkForWinner(playerScore, compScore)
+});
+
+scissorsBtn.addEventListener("click", () => {
+    const compSelection = getComputerChoice();
+    const playerSelection = "scissors";
+    playRound(playerSelection, compSelection);
+    checkForWinner(playerScore, compScore)
+});
+
+
+
+
+
+
+
+
+/* 
+
 
 function getPlayerChoice() {
     let userChoice = false;
@@ -89,7 +154,21 @@ function game() {
     else if (playerScore < compScore) {
         console.log("You Lose");
     }
-    else {
+    else
+    function game() {
+        let playerScore = 0;
+        let compScore = 0;
+        for (let i = 0; i < 5; i++) {
+        const playerSelection = getPlayerChoice();
+        const compSelection = getComputerChoice();
+        console.log(playRound(playerSelection, compSelection));
+        console.log("----------------------"); // this is to create space.
+    
+        if (checkWinner(playerSelection, compSelection) == "Player!") {
+            playerScore++;
+            
+        }
+        else {
         console.log("its a tie");
     }
    
@@ -99,3 +178,4 @@ function game() {
 
 game();
 
+ */
